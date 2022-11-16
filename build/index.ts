@@ -9,7 +9,7 @@ import {
 } from "../kumascript/src/errors.js";
 
 import { Doc } from "../libs/types/document.js";
-import { Document, Image, execGit } from "../content/index.js";
+import { Document, FileAttachment, execGit } from "../content/index.js";
 import { CONTENT_ROOT, REPOSITORY_URLS } from "../libs/env/index.js";
 import * as kumascript from "../kumascript/index.js";
 
@@ -165,7 +165,7 @@ function postLocalFileLinks($, doc) {
     // So we'll look-up a lot "false positives" that are not images.
     // Thankfully, this lookup is fast.
     const url = `${doc.mdn_url}/${href}`;
-    const image = Image.findByURLWithFallback(url);
+    const image = FileAttachment.findByURLWithFallback(url);
     if (image) {
       $(element).attr("href", url);
     }
@@ -263,14 +263,14 @@ function makeTOC(doc) {
  *
  * @param {Document} document
  */
-function getAdjacentImages(documentDirectory) {
+function getAdjacentFileAttachments(documentDirectory) {
   const dirents = fs.readdirSync(documentDirectory, { withFileTypes: true });
   return dirents
     .filter((dirent) => {
       // This needs to match what we do in filecheck/checker.py
       return (
         !dirent.isDirectory() &&
-        /\.(png|jpeg|jpg|gif|svg|webp)$/i.test(dirent.name)
+        /\.(mp3|mp4|png|jpeg|jpg|gif|ogg|svg|ttf|webm|webp)$/i.test(dirent.name)
       );
     })
     .map((dirent) => path.join(documentDirectory, dirent.name));
@@ -501,8 +501,8 @@ export async function buildDocument(
   // The checkImageReferences() does 2 things. Checks image *references* and
   // it returns which images it checked. But we'll need to complement any
   // other images in the folder.
-  getAdjacentImages(path.dirname(document.fileInfo.path)).forEach((fp) =>
-    fileAttachments.add(fp)
+  getAdjacentFileAttachments(path.dirname(document.fileInfo.path)).forEach(
+    (fp) => fileAttachments.add(fp)
   );
 
   // Check the img tags for possible flaws and possible build-time rewrites
