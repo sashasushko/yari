@@ -15,7 +15,7 @@ import { useLocale, useIsServer } from "../hooks";
 import NoteCard from "../ui/molecules/notecards";
 import type BCD from "@mdn/browser-compat-data/types";
 
-interface QueryJson {
+export interface QueryJson {
   query: string;
   data: BCD.Identifier;
   browsers: BCD.Browsers;

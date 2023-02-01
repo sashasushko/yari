@@ -38,6 +38,7 @@ import "./index.scss";
 import "./interactive-examples.scss";
 import { DocumentSurvey } from "../ui/molecules/document-survey";
 import { useIncrementFrequentlyViewed } from "../plus/collections/frequently-viewed";
+import { BaselineIndicator } from "./baseline-indicator";
 // import { useUIStatus } from "../ui-context";
 
 // Lazy sub-components
@@ -243,7 +244,10 @@ export function Document(props /* TODO: define a TS interface for this */) {
             </React.Suspense>
           )}
           <article className="main-page-content" lang={doc.locale}>
-            <h1>{doc.title}</h1>
+            <header>
+              <h1>{doc.title}</h1>
+              <BaselineIndicator browserCompat={doc.browserCompat} />
+            </header>
             <DocumentSurvey doc={doc} />
             <RenderDocumentBody doc={doc} />
             <Metadata doc={doc} locale={locale} />

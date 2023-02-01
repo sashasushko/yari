@@ -1,0 +1,40 @@
+.main-page-content > header {
+  align-items: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.baseline-indicator {
+  --text-link: var(--text-invert);
+  align-items: center;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 2.2rem;
+  margin-left: 1rem;
+  padding: 0.25rem 0.5rem;
+  text-decoration: none !important;
+
+  &:active {
+    background: inherit !important;
+  }
+
+  &.baseline-true {
+    &,
+    &:active {
+      background: var(--icon-success) !important;
+    }
+  }
+
+  &.baseline-false {
+    &,
+    &:active {
+      background: var(--icon-critical) !important;
+    }
+  }
+
+  .icon {
+    --icon-primary: var(--text-invert);
+    margin-right: 0.5rem;
+  }
+}
