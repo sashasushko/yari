@@ -3,8 +3,8 @@ browser-compat:
 macros:
   - "kumascript/**/*"
 dependencies:
+  - "package-lock.json"
   - "**/poetry.lock"
-  - "**/yarn.lock"
 deployer:
   - "deployer/**/*"
 flaw-system:
