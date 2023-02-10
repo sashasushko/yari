@@ -14,8 +14,7 @@
   "workspaces": [
     "./client",
     "./client/pwa",
-    "./libs/*",
-    "./deployer/aws-lambda/tests"
+    "./libs/*"
   ],
   "scripts": {
     "analyze": "source-map-explorer 'client/build/static/js/*.js'",

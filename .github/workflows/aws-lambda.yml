@@ -27,6 +27,7 @@ jobs:
             package-lock.json
             deployer/aws-lambda/content-origin-request/package-lock.json
             deployer/aws-lambda/content-origin-response/package-lock.json
+            deployer/aws-lambda/tests/package-lock.json
 
       - name: Install all npm packages (ROOT)
         run: npm ci
@@ -44,6 +45,10 @@ jobs:
 
       - name: Install all npm packages (content-origin-response)
         working-directory: deployer/aws-lambda/content-origin-response
+        run: npm ci
+
+      - name: Install all npm packages (tests)
+        working-directory: deployer/aws-lambda/tests
         run: npm ci
 
       - name: Run test server
