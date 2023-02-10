@@ -24,9 +24,13 @@ jobs:
           node-version: 18
           cache: npm
           cache-dependency-path: |
+            package-lock.json
             deployer/aws-lambda/content-origin-request/package-lock.json
             deployer/aws-lambda/content-origin-response/package-lock.json
             deployer/aws-lambda/tests/package-lock.json
+
+      - name: Install all npm packages (ROOT)
+        run: npm ci
 
       # Note!
       # npm workspaces share a single node_modules directory in the root,
