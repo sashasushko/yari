@@ -23,8 +23,28 @@ jobs:
         with:
           node-version: 18
           cache: npm
+          cache-dependency-path: |
+            deployer/aws-lambda/content-origin-request/package-lock.json
+            deployer/aws-lambda/content-origin-response/package-lock.json
+            deployer/aws-lambda/tests/package-lock.json
 
-      - name: Install all npm packages
+      # Note!
+      # npm workspaces share a single node_modules directory in the root,
+      # but we need individual node_modules directory for each lambda, so
+      # that we can package them. So we cannot add them as npm workspaces.
+      #
+      # This means we need to manually install each lambda's dependencies:
+
+      - name: Install all npm packages (content-origin-request)
+        working-directory: deployer/aws-lambda/content-origin-request
+        run: npm ci
+
+      - name: Install all npm packages (content-origin-response)
+        working-directory: deployer/aws-lambda/content-origin-response
+        run: npm ci
+
+      - name: Install all npm packages (tests)
+        working-directory: deployer/aws-lambda/tests
         run: npm ci
 
       - name: Run test server
